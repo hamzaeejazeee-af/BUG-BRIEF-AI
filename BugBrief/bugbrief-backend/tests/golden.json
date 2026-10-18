@@ -1,0 +1,384 @@
+{
+ "logs": [
+  {
+   "id": "js-typeerror",
+   "text": "2026-03-02T10:14:22.101Z INFO  checkout: cart loaded items=3\n2026-03-02T10:14:25.554Z ERROR Uncaught TypeError: Cannot read properties of undefined (reading 'price')\n    at calcTotal (https://shop.example.com/static/app.js:1204:17)\n    at onPay (https://shop.example.com/static/app.js:1311:9)\n    at HTMLButtonElement.<anonymous> (https://shop.example.com/static/app.js:88:5)\n",
+   "expect": {
+    "signature_has": [
+     "TypeError",
+     "reading 'price'",
+     "calcTotal"
+    ],
+    "kind": "exception",
+    "errors_min": 1,
+    "time_first": "2026-03-02T10:14:22"
+   }
+  },
+  {
+   "id": "py-traceback",
+   "text": "Traceback (most recent call last):\n  File \"/srv/app/api/login.py\", line 58, in post\n    user = db.get_user(email)\n  File \"/srv/app/db.py\", line 112, in get_user\n    return self.conn.execute(q).fetchone()[0]\nTypeError: 'NoneType' object is not subscriptable\n",
+   "expect": {
+    "signature_has": [
+     "TypeError",
+     "NoneType",
+     "get_user"
+    ],
+    "kind": "exception",
+    "errors_min": 1
+   }
+  },
+  {
+   "id": "android-npe",
+   "text": "E/AndroidRuntime: FATAL EXCEPTION: main\n    Process: com.example.notes, PID: 4821\n    java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String com.example.notes.Note.getTitle()' on a null object reference\n        at com.example.notes.ui.NoteAdapter.onBindViewHolder(NoteAdapter.java:77)\n        at androidx.recyclerview.widget.RecyclerView.bindViewHolder(RecyclerView.java:7254)\n",
+   "expect": {
+    "signature_has": [
+     "NullPointerException",
+     "onBindViewHolder"
+    ],
+    "kind": "crash",
+    "errors_min": 1,
+    "env": {
+     "package": "com.example.notes"
+    }
+   }
+  },
+  {
+   "id": "http-500",
+   "text": "10.0.0.5 - - [02/Mar/2026:10:20:11 +0000] \"POST /api/orders HTTP/1.1\" 500 342\n10.0.0.5 - - [02/Mar/2026:10:20:12 +0000] \"POST /api/orders HTTP/1.1\" 500 342\n10.0.0.5 - - [02/Mar/2026:10:20:13 +0000] \"POST /api/orders HTTP/1.1\" 500 342\n10.0.0.5 - - [02/Mar/2026:10:20:14 +0000] \"GET /api/health HTTP/1.1\" 200 12\n",
+   "expect": {
+    "signature_has": [
+     "HTTP 500",
+     "POST /api/orders"
+    ],
+    "kind": "http",
+    "status": [
+     500
+    ],
+    "errors_min": 1,
+    "repeated_min": 1
+   }
+  },
+  {
+   "id": "browser-console",
+   "text": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36\nFailed to load resource: the server responded with a status of 404 ()\nGET https://cdn.example.com/lib.js net::ERR_CONNECTION_REFUSED\n",
+   "expect": {
+    "errors_min": 1,
+    "env": {
+     "browser": "Chrome 121",
+     "os_has": "Windows"
+    }
+   }
+  },
+  {
+   "id": "node-enoent",
+   "text": "Error: ENOENT: no such file or directory, open '/tmp/report.csv'\n    at Object.openSync (node:fs:601:3)\n    at Object.readFileSync (node:fs:469:35)\nNode.js v20.11.0\n",
+   "expect": {
+    "signature_has": [
+     "ENOENT"
+    ],
+    "kind": "exception",
+    "errors_min": 1,
+    "env": {
+     "node": "20.11.0"
+    }
+   }
+  },
+  {
+   "id": "info-only",
+   "text": "2026-03-02T10:00:00Z INFO server started on port 8080\n2026-03-02T10:00:01Z INFO connected to database\n2026-03-02T10:00:05Z DEBUG cache warmed in 120ms\n",
+   "expect": {
+    "no_error": true
+   }
+  },
+  {
+   "id": "ios-crash",
+   "text": "Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[__NSArrayM objectAtIndex:]: index 5 beyond bounds [0 .. 2]'\nDevice: iPhone15,2  OS: iOS 17.2\n",
+   "expect": {
+    "signature_has": [
+     "NSInvalidArgumentException"
+    ],
+    "kind": "crash",
+    "errors_min": 1,
+    "env": {
+     "os": "iOS 17.2",
+     "device": "iPhone15,2"
+    }
+   }
+  }
+ ],
+ "redaction": [
+  {
+   "text": "Contact john.doe@example.com token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.abc123SIGNATURE_xyz",
+   "must_not": [
+    "john.doe@example.com",
+    "eyJhbGciOiJIUzI1NiJ9"
+   ],
+   "must": [
+    "[EMAIL]"
+   ]
+  },
+  {
+   "text": "Authorization: Bearer ghp_abcdefghijklmnopqrstuvwxyz0123456789",
+   "must_not": [
+    "ghp_abcdefghijklmnopqrstuvwxyz0123456789"
+   ],
+   "must": [
+    "Bearer"
+   ]
+  },
+  {
+   "text": "login failed password=hunter2secret for user 42",
+   "must_not": [
+    "hunter2secret"
+   ],
+   "must": [
+    "user 42"
+   ]
+  },
+  {
+   "text": "api_key: sk_live_51Habcdefghijklmnop was rejected",
+   "must_not": [
+    "sk_live_51Habcdefghijklmnop"
+   ],
+   "must": [
+    "rejected"
+   ]
+  },
+  {
+   "text": "paid with card 4242 4242 4242 4242 today",
+   "must_not": [
+    "4242 4242 4242 4242"
+   ],
+   "must": [
+    "paid with card"
+   ]
+  },
+  {
+   "text": "status=500 userId=42 retry=3 order 100200300",
+   "must_not": [],
+   "must": [
+    "status=500",
+    "userId=42",
+    "order 100200300"
+   ]
+  },
+  {
+   "text": "client 192.168.1.20 opened /Users/alice/project/app.js call 555-123-4567",
+   "strict": true,
+   "must_not": [
+    "192.168.1.20",
+    "alice",
+    "555-123-4567"
+   ],
+   "must": [
+    "opened"
+   ]
+  },
+  {
+   "text": "client 192.168.1.20 opened /Users/alice/project/app.js",
+   "strict": false,
+   "must_not": [],
+   "must": [
+    "192.168.1.20"
+   ]
+  }
+ ],
+ "severity": [
+  [
+   "All user data was deleted after sync",
+   "critical"
+  ],
+  [
+   "Users were charged twice at checkout",
+   "critical"
+  ],
+  [
+   "App crashes when tapping Pay",
+   "high"
+  ],
+  [
+   "API returns 500 when creating an order",
+   "high"
+  ],
+  [
+   "Search sometimes returns duplicate results, refresh fixes it",
+   "medium"
+  ],
+  [
+   "Button text is misaligned by 2px on the settings page",
+   "low"
+  ],
+  [
+   "Typo in footer: recieve",
+   "low"
+  ],
+  [
+   "Anyone can view other users' invoices by changing the id in the URL",
+   "critical"
+  ],
+  [
+   "Dark mode toggle does not remember the setting",
+   "medium"
+  ],
+  [
+   "Page loads slowly, about 8 seconds on mobile",
+   "medium"
+  ]
+ ],
+ "dedupe": [
+  {
+   "a": {
+    "title": "Checkout crashes with TypeError reading price",
+    "signature": "TypeError: Cannot read properties of undefined (reading 'price') @ app.js:calcTotal",
+    "actual": "App throws an error when pressing Pay"
+   },
+   "b": {
+    "title": "Pay button throws TypeError: cannot read properties of undefined",
+    "signature": "TypeError: Cannot read properties of undefined (reading 'price') @ app.js:calcTotal",
+    "actual": "Uncaught TypeError after tapping Pay"
+   },
+   "duplicate": true
+  },
+  {
+   "a": {
+    "title": "Checkout crashes with TypeError reading price",
+    "signature": "TypeError: Cannot read properties of undefined (reading 'price') @ app.js:calcTotal",
+    "actual": "App throws an error when pressing Pay"
+   },
+   "b": {
+    "title": "Typo in footer",
+    "signature": "",
+    "actual": "Footer says recieve instead of receive"
+   },
+   "duplicate": false
+  },
+  {
+   "a": {
+    "title": "Login returns 500 for new users",
+    "signature": "HTTP 500 POST /auth/login",
+    "actual": "Server error on login"
+   },
+   "b": {
+    "title": "500 error when signing in with a new account",
+    "signature": "HTTP 500 POST /auth/login",
+    "actual": "Login request fails with server error"
+   },
+   "duplicate": true
+  },
+  {
+   "a": {
+    "title": "Settings page avatar is blurry",
+    "signature": "",
+    "actual": "Profile picture looks pixelated on the settings screen"
+   },
+   "b": {
+    "title": "Profile picture looks pixelated in settings",
+    "signature": "",
+    "actual": "Avatar on the settings screen is blurry and low resolution"
+   },
+   "duplicate": true
+  },
+  {
+   "a": {
+    "title": "Settings page avatar is blurry",
+    "signature": "",
+    "actual": "Profile picture looks pixelated on the settings screen"
+   },
+   "b": {
+    "title": "Login returns 500 for new users",
+    "signature": "HTTP 500 POST /auth/login",
+    "actual": "Server error on login"
+   },
+   "duplicate": false
+  },
+  {
+   "a": {
+    "title": "Export to CSV downloads empty file",
+    "signature": "",
+    "actual": "CSV export file has zero bytes"
+   },
+   "b": {
+    "title": "CSV export produces an empty file",
+    "signature": "",
+    "actual": "Downloaded CSV contains no rows"
+   },
+   "duplicate": true
+  },
+  {
+   "a": {
+    "title": "Export to CSV downloads empty file",
+    "signature": "",
+    "actual": "CSV export file has zero bytes"
+   },
+   "b": {
+    "title": "Dark mode flickers on page load",
+    "signature": "",
+    "actual": "White flash before dark theme applies"
+   },
+   "duplicate": false
+  },
+  {
+   "a": {
+    "title": "App crashes on launch on Android 14",
+    "signature": "java.lang.NullPointerException @ MainActivity.onCreate",
+    "actual": "Immediate crash after splash screen"
+   },
+   "b": {
+    "title": "Notes list crashes when opening a note",
+    "signature": "java.lang.NullPointerException @ NoteAdapter.onBindViewHolder",
+    "actual": "Crash when tapping a note"
+   },
+   "duplicate": false
+  }
+ ],
+ "reports": [
+  {
+   "id": "checkout-crash",
+   "inputs": {
+    "description": "On my iPhone, when I tap Pay in the cart, the page freezes and nothing happens. It happens every time with 3 items in the cart. Started after the update yesterday (version 2.4.1). Safari on iOS 17.2.",
+    "logs": "2026-03-02T10:14:22.101Z INFO  checkout: cart loaded items=3\n2026-03-02T10:14:25.554Z ERROR Uncaught TypeError: Cannot read properties of undefined (reading 'price')\n    at calcTotal (https://shop.example.com/static/app.js:1204:17)\n    at onPay (https://shop.example.com/static/app.js:1311:9)\n    at HTMLButtonElement.<anonymous> (https://shop.example.com/static/app.js:88:5)\n"
+   },
+   "expected": {
+    "severity": "high",
+    "keywords": [
+     "pay",
+     "cart",
+     "typeerror",
+     "price"
+    ],
+    "component_hint": "checkout"
+   }
+  },
+  {
+   "id": "login-500",
+   "inputs": {
+    "description": "New users cannot sign in. Entering a correct email and password gives a generic error banner. Works for older accounts. Seen on production this morning.",
+    "logs": "Traceback (most recent call last):\n  File \"/srv/app/api/login.py\", line 58, in post\n    user = db.get_user(email)\n  File \"/srv/app/db.py\", line 112, in get_user\n    return self.conn.execute(q).fetchone()[0]\nTypeError: 'NoneType' object is not subscriptable\n"
+   },
+   "expected": {
+    "severity": "high",
+    "keywords": [
+     "login",
+     "nonetype",
+     "new"
+    ],
+    "component_hint": "login"
+   }
+  },
+  {
+   "id": "footer-typo",
+   "inputs": {
+    "description": "The footer on the pricing page says 'recieve updates' instead of 'receive updates'.",
+    "logs": ""
+   },
+   "expected": {
+    "severity": "low",
+    "keywords": [
+     "footer",
+     "recieve"
+    ],
+    "component_hint": "pricing"
+   }
+  }
+ ]
+}

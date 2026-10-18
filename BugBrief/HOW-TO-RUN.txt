@@ -1,0 +1,16 @@
+HOW TO RUN (simple)
+===================
+1. Double-click bugbrief-app.html  (opens in Chrome or Edge).
+2. A small "AI Setup" box appears (also a button at the bottom-right).
+3. Choose  "Groq - free key (recommended)".
+4. Get the key (1 minute, no card):
+      a) open  https://console.groq.com/keys
+      b) sign up, tap "Create API Key", copy it (starts with gsk_)
+      c) paste it in the box -> tap Test -> tap Save
+5. Done. The page reloads and the AI answers. Your key stays only in this browser.
+
+Grok (xAI) is also in the list, but the Grok API is PAID (needs credit at console.x.ai).
+No key? Pick "Ollama" (see the hint inside the box).
+If the Test says your browser is blocking the call, use the Python version of the app
+(start.bat) or Ollama. Nothing was removed; without a key the app still works offline.
+Never share a screenshot or file that contains your key.
